@@ -38,6 +38,20 @@ int binary_search(int arr[], size_t len, int x) {
   return 0;
 }
 
+void selection_sort(int arr[], size_t len) {
+  for (int offset = 0; offset < len; offset++) {
+	  int iofl = offset;
+	  for (int i = offset; i < len; i++) {
+		  if (arr[iofl] > arr[i]) {
+			  iofl = i;
+			}
+		}
+		int tmp = arr[offset];
+		arr[offset] = arr[iofl];
+		arr[iofl] = tmp;
+	}
+}
+
 void bubble_sort(int arr[], size_t len) {
   int sorted = 0;
   while (!sorted) {
@@ -58,7 +72,8 @@ int *a_sorter(int arr[]);
 int main (void) {
   int arr[] = { 4, 9, 7, 2, 10, 8, 3, 1, 6, 5 };
   int len = sizeof(arr)/sizeof(*arr);
-  bubble_sort(arr, len);
+  // bubble_sort(arr, len);
+	selection_sort(arr, len);
   if (a_sorted(arr, len)) {
     printf("Passed!\n");
   } else {
