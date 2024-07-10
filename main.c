@@ -2,6 +2,18 @@
 #include <stddef.h>
 #include <stdio.h>
 
+int a_sorted(int arr[], size_t len);
+int a_equal(int arr1[], int arr2[], size_t len);
+int binary_search(int arr[], size_t len, int x);
+void bubble_sort(int arr[], size_t len);
+int contains_substr(char *str, size_t len, char *sub, size_t lenstr);
+
+int contains_substr(char *str, size_t lenstr, char *sub, size_t lensub) {
+  for (int i = 0; i + lensub < lenstr + 1; i++) {
+  }
+  return 0;
+}
+
 int a_sorted(int arr[], size_t len) {
   for (int i = 0; i < len -1; i++) {
     if (arr[i] > arr[i+1]) {
@@ -66,8 +78,6 @@ void bubble_sort(int arr[], size_t len) {
     }
   }
 }
-
-int *a_sorter(int arr[]);
 
 int main (void) {
   int arr[] = { 4, 9, 7, 2, 10, 8, 3, 1, 6, 5 };
