@@ -64,6 +64,12 @@ void selection_sort(int arr[], size_t len) {
 	}
 }
 
+/* int* newRandSortedArr(int size) { */
+/*   int powsTen[] = {1, 10, 100, 1000, 10000}; */
+/*   int arr[] = {}; */
+/*   return arr; */
+/* } */
+
 void bubble_sort(int arr[], size_t len) {
   int sorted = 0;
   while (!sorted) {
