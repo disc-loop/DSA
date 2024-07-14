@@ -6,6 +6,8 @@ int a_sorted(int arr[], size_t len);
 int a_equal(int arr1[], int arr2[], size_t len);
 int binary_search(int arr[], size_t len, int x);
 void bubble_sort(int arr[], size_t len);
+void selection_sort(int arr[], size_t len);
+void insertion_sort(int arr[], size_t len);
 int contains_substr(char *str, size_t len, char *sub, size_t lenstr);
 
 int contains_substr(char *str, size_t lenstr, char *sub, size_t lensub) {
@@ -64,6 +66,22 @@ void selection_sort(int arr[], size_t len) {
 	}
 }
 
+void insertion_sort(int arr[], size_t len) {
+  for (int i = 1; i < len; i++) {
+    int tmp = arr[i];
+    int pos = i - 1;
+    while (pos >= 0) {
+      if (arr[pos] > tmp) {
+        arr[pos+1] = arr[pos]; // Note that we can overwrite arr[pos+1] as we've already saved it in tmp
+        pos = pos - 1;
+      } else {
+        break;
+      }
+    }
+    arr[pos+1] = tmp;
+  }
+}
+
 /* int* newRandSortedArr(int size) { */
 /*   int powsTen[] = {1, 10, 100, 1000, 10000}; */
 /*   int arr[] = {}; */
@@ -88,8 +106,7 @@ void bubble_sort(int arr[], size_t len) {
 int main (void) {
   int arr[] = { 4, 9, 7, 2, 10, 8, 3, 1, 6, 5 };
   int len = sizeof(arr)/sizeof(*arr);
-  // bubble_sort(arr, len);
-	selection_sort(arr, len);
+	insertion_sort(arr, len);
   if (a_sorted(arr, len)) {
     printf("Passed!\n");
   } else {
