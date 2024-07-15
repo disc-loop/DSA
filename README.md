@@ -9,6 +9,7 @@ A tool to learn data structures and algorithms in C.
     - Implementation
     - Kind of algorithm (search, filter, divide and conquer, etc.)
     - Time complexity
+        - Best case, worst case, average case
     - Space complexity
     - Limitations
     - Use cases

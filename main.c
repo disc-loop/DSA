@@ -52,33 +52,37 @@ int binary_search(int arr[], size_t len, int x) {
   return 0;
 }
 
+// B:O(n^2/2)=O(n^2) W:O(n^2/2)=O(n^2) A:O(n^2/2)=O(n^2)
 void selection_sort(int arr[], size_t len) {
-  for (int offset = 0; offset < len; offset++) {
-	  int iofl = offset;
-	  for (int i = offset; i < len; i++) {
-		  if (arr[iofl] > arr[i]) {
-			  iofl = i;
+  for (int i = 0; i < len; i++) {
+	  int idxOfLowest = i;
+	  for (int j = i; j < len; j++) {
+		  if (arr[idxOfLowest] > arr[j]) {
+			  idxOfLowest = j;
 			}
 		}
-		int tmp = arr[offset];
-		arr[offset] = arr[iofl];
-		arr[iofl] = tmp;
+    if (idxOfLowest != i) {
+      int tmp = arr[i];
+      arr[i] = arr[idxOfLowest];
+      arr[idxOfLowest] = tmp;
+    }
 	}
 }
 
+// B:O(n) W:O(n^2 A:O(n^2/2)=O(n^2)
 void insertion_sort(int arr[], size_t len) {
   for (int i = 1; i < len; i++) {
     int tmp = arr[i];
-    int pos = i - 1;
-    while (pos >= 0) {
-      if (arr[pos] > tmp) {
-        arr[pos+1] = arr[pos]; // Note that we can overwrite arr[pos+1] as we've already saved it in tmp
-        pos = pos - 1;
+    int pos = i;
+    while (pos > 0) {
+      if (arr[pos-1] > tmp) {
+        arr[pos] = arr[pos-1];
+        pos = pos-1;
       } else {
         break;
       }
     }
-    arr[pos+1] = tmp;
+    arr[pos] = tmp;
   }
 }
 
@@ -106,8 +110,17 @@ void bubble_sort(int arr[], size_t len) {
 int main (void) {
   int arr[] = { 4, 9, 7, 2, 10, 8, 3, 1, 6, 5 };
   int len = sizeof(arr)/sizeof(*arr);
-	insertion_sort(arr, len);
+	selection_sort(arr, len);
   if (a_sorted(arr, len)) {
+    printf("Passed!\n");
+  } else {
+    printf("Failed!\n");
+  }
+
+  int arr2[] = { 4, 9, 7, 2, 10, 8, 3, 1, 6, 5 };
+  len = sizeof(arr2)/sizeof(*arr2);
+	insertion_sort(arr2, len);
+  if (a_sorted(arr2, len)) {
     printf("Passed!\n");
   } else {
     printf("Failed!\n");
