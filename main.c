@@ -72,17 +72,11 @@ void selection_sort(int arr[], size_t len) {
 // B:O(n) W:O(n^2 A:O(n^2/2)=O(n^2)
 void insertion_sort(int arr[], size_t len) {
   for (int i = 1; i < len; i++) {
-    int tmp = arr[i];
-    int pos = i;
-    while (pos > 0) {
-      if (arr[pos-1] > tmp) {
-        arr[pos] = arr[pos-1];
-        pos = pos-1;
-      } else {
-        break;
-      }
-    }
-    arr[pos] = tmp;
+	  for (int j = i; j > 0 && arr[j-1] > arr[j]; j--) {
+		  int tmp = arr[j];
+			arr[j] = arr[j-1];
+			arr[j-1] = tmp;
+		}
   }
 }
 
