@@ -1,8 +1,9 @@
 #include <math.h>
 #include <stddef.h>
 #include <stdio.h>
+#include <assert.h>
 
-int a_sorted(int arr[], size_t len);
+int isSorted(int arr[], size_t len);
 int a_equal(int arr1[], int arr2[], size_t len);
 int binary_search(int arr[], size_t len, int x);
 void bubble_sort(int arr[], size_t len);
@@ -16,7 +17,7 @@ int contains_substr(char *str, size_t lenstr, char *sub, size_t lensub) {
   return 0;
 }
 
-int a_sorted(int arr[], size_t len) {
+int isSorted(int arr[], size_t len) {
   for (int i = 0; i < len -1; i++) {
     if (arr[i] > arr[i+1]) {
       return 0;
@@ -101,24 +102,31 @@ void bubble_sort(int arr[], size_t len) {
   }
 }
 
+struct Profile {
+  char name[30];
+  void (*implementation)(int[], size_t);
+  struct {
+    char bestCase[30];
+    char worstCase[30];
+    char averageCase[30];
+  } runtime;
+};
+
 int main (void) {
+  struct Profile selectionSortProfile = {
+    .name =  "Selection Sort",
+    .implementation = selection_sort,
+  };
   int arr[] = { 4, 9, 7, 2, 10, 8, 3, 1, 6, 5 };
   int len = sizeof(arr)/sizeof(*arr);
-	selection_sort(arr, len);
-  if (a_sorted(arr, len)) {
-    printf("Passed!\n");
-  } else {
-    printf("Failed!\n");
-  }
+  selectionSortProfile.implementation(arr, len);
+  assert(("Selection sort", isSorted(arr, len)));
 
   int arr2[] = { 4, 9, 7, 2, 10, 8, 3, 1, 6, 5 };
   len = sizeof(arr2)/sizeof(*arr2);
-	insertion_sort(arr2, len);
-  if (a_sorted(arr2, len)) {
-    printf("Passed!\n");
-  } else {
-    printf("Failed!\n");
-  }
+  insertion_sort(arr2, len);
+  assert(("Insertion sort", isSorted(arr2, len)));
+  printf("All tests passed!\n");
 
   /* int sorted[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }; */
   /* int len = sizeof(sorted)/sizeof(*sorted); */
