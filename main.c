@@ -36,64 +36,15 @@ int arraysEq(int arr1[], int arr2[], size_t len) {
 /* } */
 
 int binary_search(int arr[], size_t len, int x) {
-  int hi = len;
-  int lo = 0;
-  do {
-    int mid = floor(lo + (hi - lo) /2);
-    int v = arr[mid];
-    if (v == x) {
-      return 1;
-    }
-    if (v > x) {
-      hi = mid;
-      continue;
-    }
-    lo = mid + 1;
-  } while (lo < hi);
-  return 0;
 }
 
-// B:O(n^2/2)=O(n^2) W:O(n^2/2)=O(n^2) A:O(n^2/2)=O(n^2)
 void selection_sort(int arr[], size_t len) {
-  for (int i = 0; i < len; i++) {
-	  int idxOfLowest = i;
-	  for (int j = i; j < len; j++) {
-		  if (arr[idxOfLowest] > arr[j]) {
-			  idxOfLowest = j;
-			}
-		}
-    if (idxOfLowest != i) {
-      int tmp = arr[i];
-      arr[i] = arr[idxOfLowest];
-      arr[idxOfLowest] = tmp;
-    }
-	}
 }
 
-// B:O(n) W:O(n^2 A:O(n^2/2)=O(n^2)
 void insertion_sort(int arr[], size_t len) {
-  for (int i = 1; i < len; i++) {
-	  for (int j = i; j > 0 && arr[j-1] > arr[j]; j--) {
-		  int tmp = arr[j];
-			arr[j] = arr[j-1];
-			arr[j-1] = tmp;
-		}
-  }
 }
 
 void bubble_sort(int arr[], size_t len) {
-  int sorted = 0;
-  while (!sorted) {
-    sorted = 1;
-    for (int i = 0; i < len -1; i++) {
-      if (arr[i] > arr[i+1]) {
-        int tmp = arr[i];
-        arr[i] = arr[i+1];
-        arr[i+1] = tmp;
-        sorted = 0;
-      }
-    }
-  }
 }
 
 union AlgorithmImplementation {
