@@ -102,9 +102,9 @@ void bubble_sort(int arr[], size_t len) {
   }
 }
 
-struct Profile {
+struct AlgorithmProfile {
   char name[30];
-  void (*implementation)(int[], size_t);
+  void (*apply)(int[], size_t);
   struct {
     char bestCase[30];
     char worstCase[30];
@@ -113,28 +113,29 @@ struct Profile {
 };
 
 int main (void) {
-  struct Profile selectionSortProfile = {
-    .name =  "Selection Sort",
-    .implementation = selection_sort,
+  struct AlgorithmProfile algos[] = {
+    {
+      .name = "Selection Sort",
+      .apply = selection_sort,
+    },
+    {
+      .name = "Insertion Sort",
+      .apply = insertion_sort,
+    }
   };
-  int arr[] = { 4, 9, 7, 2, 10, 8, 3, 1, 6, 5 };
-  int len = sizeof(arr)/sizeof(*arr);
-  selectionSortProfile.implementation(arr, len);
-  assert(("Selection sort", isSorted(arr, len)));
+  int len = sizeof(algos)/sizeof(*algos);
 
-  int arr2[] = { 4, 9, 7, 2, 10, 8, 3, 1, 6, 5 };
-  len = sizeof(arr2)/sizeof(*arr2);
-  insertion_sort(arr2, len);
-  assert(("Insertion sort", isSorted(arr2, len)));
-  printf("All tests passed!\n");
-
-  /* int sorted[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }; */
-  /* int len = sizeof(sorted)/sizeof(*sorted); */
-  /* if (binary_search(sorted, len, 9)) { */
-  /*   printf("Passed!\n"); */
-  /* } else { */
-  /*   printf("Failed!\n"); */
-  /* } */
+  for (int i = 0; i < len; i++) {
+    int a[] = { 4, 9, 7, 2, 10, 8, 3, 1, 6, 5 };
+    int l = sizeof(a)/sizeof(*a);
+    algos[i].apply(a, l);
+    if (isSorted(a, l)) {
+      printf("%s worked!\n", algos[i].name);
+    } else {
+      printf("%s did not work.\n", algos[i].name);
+      return 0;
+    }
+  }
 
   return 0;
 }
