@@ -2,20 +2,14 @@
 #include <stddef.h>
 #include <stdio.h>
 #include <assert.h>
+#include <string.h>
 
 int isSorted(int arr[], size_t len);
-int a_equal(int arr1[], int arr2[], size_t len);
+int arraysEq(int arr1[], int arr2[], size_t len);
 int binary_search(int arr[], size_t len, int x);
 void bubble_sort(int arr[], size_t len);
 void selection_sort(int arr[], size_t len);
 void insertion_sort(int arr[], size_t len);
-int contains_substr(char *str, size_t len, char *sub, size_t lenstr);
-
-int contains_substr(char *str, size_t lenstr, char *sub, size_t lensub) {
-  for (int i = 0; i + lensub < lenstr + 1; i++) {
-  }
-  return 0;
-}
 
 int isSorted(int arr[], size_t len) {
   for (int i = 0; i < len -1; i++) {
@@ -26,7 +20,7 @@ int isSorted(int arr[], size_t len) {
   return 1;
 }
 
-int a_equal(int arr1[], int arr2[], size_t len) {
+int arraysEq(int arr1[], int arr2[], size_t len) {
   for (int i = 0; i < len; i++) {
     if (arr1[i] != arr2[i]) {
       return 0;
@@ -34,6 +28,12 @@ int a_equal(int arr1[], int arr2[], size_t len) {
   }
   return 1;
 }
+
+/* int* newRandSortedArr(int size) { */
+/*   int powsTen[] = {1, 10, 100, 1000, 10000}; */
+/*   int arr[] = {}; */
+/*   return arr; */
+/* } */
 
 int binary_search(int arr[], size_t len, int x) {
   int hi = len;
@@ -81,12 +81,6 @@ void insertion_sort(int arr[], size_t len) {
   }
 }
 
-/* int* newRandSortedArr(int size) { */
-/*   int powsTen[] = {1, 10, 100, 1000, 10000}; */
-/*   int arr[] = {}; */
-/*   return arr; */
-/* } */
-
 void bubble_sort(int arr[], size_t len) {
   int sorted = 0;
   while (!sorted) {
@@ -104,11 +98,13 @@ void bubble_sort(int arr[], size_t len) {
 
 struct AlgorithmProfile {
   char name[30];
-  void (*apply)(int[], size_t);
+  char type[30];
+  void (*applySort)(int[], size_t);
+  int (*applySearch)(int[], size_t, int);
   struct {
-    char bestCase[30];
-    char worstCase[30];
-    char averageCase[30];
+    char best[30];
+    char worst[30];
+    char average[30];
   } runtime;
 };
 
@@ -116,24 +112,62 @@ int main (void) {
   struct AlgorithmProfile algos[] = {
     {
       .name = "Selection Sort",
-      .apply = selection_sort,
+      .type = "sort",
+      .applySort = selection_sort,
+      .runtime = {
+        .best = "O(n^2)",
+        .worst = "O(n^2)",
+        .average = "O(n^2)",
+      }
     },
     {
       .name = "Insertion Sort",
-      .apply = insertion_sort,
+      .type = "sort",
+      .applySort = insertion_sort,
+      .runtime = {
+        .best = "O(n)",
+        .worst = "O(n^2)",
+        .average = "O(n^2)",
+      }
+    },
+    {
+      .name = "Binary Search",
+      .type = "search",
+      .applySearch = binary_search,
+      .runtime = {
+        .best = "O(1)",
+        .worst = "O(log(n))",
+        .average = "O(log(n))",
+      }
     }
   };
   int len = sizeof(algos)/sizeof(*algos);
 
   for (int i = 0; i < len; i++) {
-    int a[] = { 4, 9, 7, 2, 10, 8, 3, 1, 6, 5 };
-    int l = sizeof(a)/sizeof(*a);
-    algos[i].apply(a, l);
-    if (isSorted(a, l)) {
-      printf("%s worked!\n", algos[i].name);
-    } else {
-      printf("%s did not work.\n", algos[i].name);
-      return 0;
+    if (!strcmp(algos[i].type, "sort")) {
+      int a[] = { 4, 9, 7, 2, 10, 8, 3, 1, 6, 5 };
+      int l = sizeof(a)/sizeof(*a);
+
+      algos[i].applySort(a, l);
+
+      if (isSorted(a, l)) {
+        printf("%s worked!\n", algos[i].name);
+      } else {
+        printf("%s did not work.\n", algos[i].name);
+      }
+    }
+    if (!strcmp(algos[i].type, "search")) {
+      int a[] = { 1, 3, 4, 7, 7, 9, 10, 30, 31, 100 };
+      int l = sizeof(a)/sizeof(*a);
+
+      int found = algos[i].applySearch(a, l, 31);
+      int notFound = algos[i].applySearch(a, l, 2000);
+
+      if (found && !notFound) {
+        printf("%s worked!\n", algos[i].name);
+      } else {
+        printf("%s did not work.\n", algos[i].name);
+      }
     }
   }
 
