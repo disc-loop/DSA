@@ -146,6 +146,7 @@ int main (void) {
     }
   };
   int len = sizeof(algos)/sizeof(*algos);
+  int score = 0;
 
   for (int i = 0; i < len; i++) {
     if (!strcmp(algos[i].type, "sort")) {
@@ -156,6 +157,7 @@ int main (void) {
 
       if (isSorted(a, l)) {
         printf("%s worked!\n", algos[i].name);
+        score++;
       } else {
         printf("%s did not work.\n", algos[i].name);
       }
@@ -169,11 +171,13 @@ int main (void) {
 
       if (found && !notFound) {
         printf("%s worked!\n", algos[i].name);
+        score++;
       } else {
         printf("%s did not work.\n", algos[i].name);
       }
     }
   }
+  printf("Got %d out of %d correct.\n", score, len);
 
   return 0;
 }
