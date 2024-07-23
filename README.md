@@ -1,4 +1,22 @@
-A tool to learn data structures and algorithms in C.
+A tool to learn data structures and algorithms in C. 
+
+# Use
+Generate exercises:
+```
+dsa -g binarySearch
+dsa -g insertionSort quickSort
+dsa -g binarySearch -o some/path
+```
+Test solutions:
+```
+dsa -t some/path
+```
+Show profiles:
+```
+dsa binarySearch
+dsa insertionSort
+dsa quickSort
+```
 
 # Resources
 - [Library of algorithms and data structures](https://xlinux.nist.gov/dads/)
